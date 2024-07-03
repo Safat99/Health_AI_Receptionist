@@ -1,17 +1,17 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+ai_receptionist/HELP.md
+ai_receptionist/target/
+!ai_receptionist/.mvn/wrapper/maven-wrapper.jar
+!ai_receptionist/**/src/main/**/target/
+!ai_receptionist/**/src/test/**/target/
 
 ### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+ai_receptionist/.apt_generated
+ai_receptionist/.classpath
+ai_receptionist/.factorypath
+ai_receptionist/.project
+ai_receptionist/.settings
+ai_receptionist/.springBeans
+ai_receptionist/.sts4-cache
 
 ### IntelliJ IDEA ###
 .idea
@@ -20,14 +20,16 @@ target/
 *.ipr
 
 ### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+ai_receptionist/nbproject/private/
+ai_receptionist/nbbuild/
+ai_receptionist/dist/
+ai_receptionist/nbdist/
+ai_receptionist/.nb-gradle/
+ai_receptionist/build/
+!ai_receptionist/**/src/main/**/build/
+!ai_receptionist/**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
+
+### face-reconginition-service ###
