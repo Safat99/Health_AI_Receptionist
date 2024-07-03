@@ -33,3 +33,4 @@ ai_receptionist/build/
 .vscode/
 
 ### face-reconginition-service ###
+face-recognition-service/face-recognition-venv/
