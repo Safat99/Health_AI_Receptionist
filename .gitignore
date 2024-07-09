@@ -34,3 +34,5 @@ ai_receptionist/build/
 
 ### face-reconginition-service ###
 face-recognition-service/face-recognition-venv/
+face-recognition-service/**/__pycache__/
+face-recognition-service/dataset/
