@@ -15,3 +15,6 @@ def create_directory(path):
         pass
     except Exception as e:
         raise DirectoryError(f"Failed to create directory {path}: {str(e)}")
+
+def is_file_image(filename):
+    return filename.lower().endswith(('.jpg', '.jpeg', '.png'))
