@@ -3,7 +3,7 @@ import os
 import mediapipe as mp
 import argparse
 import logging
-from src.common.exceptions import CameraError, FaceDetectionError, DirectoryError
+from src.common.exceptions import CameraError, FaceDetectionError, DirectoryError, LoadImageError
 import src.face_detection.utils as utils
 import time
 
@@ -21,18 +21,19 @@ class FaceDetector:
         self.face_detection = self.mp_face_detection.FaceDetection(
             min_detection_confidence=0.5)
     
-    def detect_faces_mp(self, image):
+
+    def detect_faces_mp(self, image_path:str):
         """
         tells whether the input images has faces, also gives you the number of faces
 
         Args:
-            image (np.ndarray): an cv2 image
+            image_path (str): The image path
 
         Returns:
             tuple: A tuple contains a boolean field indicating the face-detection staus
                 the processed results, and the total number of faces detected
         """
-    
+        image = utils.load_image(image_path=image_path)
         converted_image = cv2.cvtColor(cv2.flip(image, 1), cv2.COLOR_BGR2RGB)
         results = self.face_detection.process(converted_image)
         
@@ -43,6 +44,7 @@ class FaceDetector:
     
     def count_faces_mp(self, image):
         """Count faces in the input image."""
+        image = utils.load_image(image_path=image)
         converted_image = cv2.cvtColor(cv2.flip(image, 1), cv2.COLOR_BGR2RGB)
         results = self.face_detection.process(converted_image)
         
@@ -146,7 +148,7 @@ class FaceDetector:
             destination_location (str): The folder with filename(.jpg) where I want to store the face
 
         Raises:
-            FaceDetectionError: If failed to load image
+            LoadImageError: If failed to load image
             FaceDetectionError: If No face is found in the given image
         """
         try:
@@ -154,10 +156,7 @@ class FaceDetector:
         except DirectoryError as e:
             logger.error(e) 
         
-        image = cv2.imread(image_path)
-        if image is None:
-            raise FaceDetectionError(f"Failed to load image {image_path}")
-        
+        image = utils.load_image(image_path=image_path)
         
         frame_count = 0
         frame_count = self.__extract_and_save_faces(image, destination_location, frame_count)   
@@ -182,10 +181,9 @@ class FaceDetector:
         for filename in os.lisdir(source_folder_path):
             if utils.is_file_image(filename=filename):
                 image_path = os.path.join(source_folder_path, filename)
-                image = cv2.imread(image_path)
-                if image is not None:
-                    frame_count = self.__extract_and_save_faces(image, image_path, frame_count)
-                    logger.info("scanned and face-cropped %d images for training..", frame_count)    
+                image = utils.load_image(image_path=image_path)
+                frame_count = self.__extract_and_save_faces(image, image_path, frame_count)
+                logger.info("scanned and face-cropped %d images for training..", frame_count)    
         
 def main():
     """Main entry point for face detection when called from the terminal."""
